@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acerca del proyecto - Simulador Von Neumann</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#10b981',
+            accent: '#f59e0b',
+            danger: '#ef4444'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-[#1b1f24] text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold"><i class="fas fa-microchip mr-2"></i>Simulador Von Neumann</h1>
+      <ul class="flex gap-6 text-sm">
+        <li><a href="index.html" class="hover:text-accent"><i class="fas fa-play-circle mr-1"></i>Simulador</a></li>
+        <li><a href="como-funciona.html" class="hover:text-accent"><i class="fas fa-book mr-1"></i>¿Cómo funciona?</a></li>
+        <li><a href="acerca.html" class="text-accent font-semibold"><i class="fas fa-info-circle mr-1"></i>Acerca del proyecto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Contenido -->
+  <main class="max-w-5xl mx-auto px-6 py-10">
+    <h2 class="text-3xl font-bold text-center mb-8 text-[#404e5c] mt-10">
+      <i class="fas fa-users mr-2 mb-5"></i>Sobre el proyecto y el equipo
+    </h2>
+
+    <section class="mb-10">
+      <p class="mb-4 text-lg leading-relaxed">
+        Este simulador fue desarrollado como parte del proyecto práctico de la materia <strong>Arquitectura Computacional y Sistemas Operativos</strong> en la <strong>Universidad Católica Boliviana “San Pablo”</strong>, durante el primer semestre de 2025.
+      </p>
+      <p class="mb-4 text-lg leading-relaxed">
+        La motivación principal fue ofrecer una herramienta didáctica e interactiva que permita visualizar el ciclo de instrucción en la arquitectura Von Neumann. Su propósito es apoyar tanto a estudiantes como docentes en la comprensión del funcionamiento interno de una CPU a nivel conceptual y visual.
+      </p>
+
+    </section>
+
+    <section class="mb-10 mt-10">
+      <h3 class="text-2xl font-semibold mb-6 text-[#404e5c]">
+        <i class="fas fa-bolt mr-2 mt-10 mb-5"></i>Objetivos principales
+      </h3>
+      <ul class="grid md:grid-cols-2 gap-6 list-none">
+        <li class="bg-gray-100 p-5 rounded shadow-md flex items-start gap-4">
+          <i class="fas fa-eye text-accent text-xl mt-1"></i>
+          <span><strong>Visualizar</strong> en tiempo real cada fase del ciclo de instrucción (FETCH, DECODE, EXECUTE, WRITEBACK).</span>
+        </li>
+        <li class="bg-gray-100 p-5 rounded shadow-md flex items-start gap-4">
+          <i class="fas fa-laptop-code text-accent text-xl mt-1"></i>
+          <span><strong>Permitir al usuario</strong> interactuar con un editor guiado o manual para programar instrucciones tipo ensamblador.</span>
+        </li>
+        <li class="bg-gray-100 p-5 rounded shadow-md flex items-start gap-4">
+          <i class="fas fa-brain text-accent text-xl mt-1"></i>
+          <span><strong>Fomentar el aprendizaje</strong> intuitivo sobre el funcionamiento de los componentes internos de una CPU.</span>
+        </li>
+        <li class="bg-gray-100 p-5 rounded shadow-md flex items-start gap-4">
+          <i class="fas fa-globe text-accent text-xl mt-1"></i>
+          <span><strong>Desarrollar una herramienta web</strong> accesible desde cualquier dispositivo sin requerir instalación.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="mb-10">
+      <h3 class="text-2xl font-semibold mb-6 text-[#404e5c]">
+        <i class="fas fa-user-friends mr-2 mt-10 mb-5"></i>Equipo desarrollador
+      </h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-[#1b1f24] text-white p-5 rounded shadow-md text-center">
+          <i class="fas fa-user-graduate text-4xl mb-3"></i>
+          <h4 class="font-semibold text-lg">Estrella Kristel Peredo Mendizábal</h4>
+        </div>
+        <div class="bg-[#1b1f24] text-white p-5 rounded shadow-md text-center">
+          <i class="fas fa-user-graduate text-4xl mb-3"></i>
+          <h4 class="font-semibold text-lg">Adriana Quiroz Yujra</h4>
+        </div>
+        <div class="bg-[#1b1f24] text-white p-5 rounded shadow-md text-center">
+          <i class="fas fa-user-graduate text-4xl mb-3"></i>
+          <h4 class="font-semibold text-lg">Camila Peréz Cano</h4>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1b1f24] text-gray-300 text-sm py-4 w-full">
+    <div class="max-w-7xl mx-auto px-4 text-center text-white">
+      Copyright ©2025 Todos los derechos reservados | Desarrollado por <span class="font-semibold">Grupo de Estudiantes UCB</span>
+    </div>
+  </footer>
+
+</body>
+</html>

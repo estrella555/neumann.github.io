@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador Arquitectura Von Neumann</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#10b981',
+            accent: '#f59e0b',
+            danger: '#ef4444'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-[#ffffff] text-gray-800 font-sans">
+
+  <!-- Navbar principal -->
+  <nav class="bg-[#1b1f24] text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <div class="flex items-center gap-2 text-xl font-bold">
+        <i class="fas fa-microchip text-accent"></i>
+        <span>Simulador Von Neumann</span>
+      </div>
+      <ul class="hidden md:flex gap-6 text-sm">
+        <li><a href="index.html" class="hover:text-accent"><i class="fas fa-play-circle mr-1"></i>Simulador</a></li>
+        <li><a href="como-funciona.html" class="hover:text-accent"><i class="fas fa-book-open mr-1"></i>¿Cómo funciona?</a></li>
+        <li><a href="acerca.html" class="hover:text-accent"><i class="fas fa-info-circle mr-1"></i>Acerca del proyecto</a></li>
+      </ul>
+      <button id="menu-btn" class="md:hidden focus:outline-none">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="hidden md:hidden px-4 pb-4">
+      <a href="index.html" class="block py-2 hover:text-accent"><i class="fas fa-play-circle mr-1"></i>Simulador</a>
+      <a href="guia.html" class="block py-2 hover:text-accent"><i class="fas fa-book-open mr-1"></i>¿Cómo funciona?</a>
+      <a href="acerca.html" class="block py-2 hover:text-accent"><i class="fas fa-info-circle mr-1"></i>Acerca del proyecto</a>
+    </div>
+  </nav>
+
+<script>
+  // Script para mostrar/ocultar menú móvil
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  });
+</script>
+
+
+<script>
+  // Toggle menú móvil
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  });
+</script>
+
+
+  <h1 class="text-4xl text-center font-bold mt-8 mb-10 title-main">
+    Simulador interactivo – Arquitectura Von Neumann
+  </h1>
+
+</pre>
+
+    <!-- Editor guiado -->
+    <section class="max-w-5xl mx-auto bg-gray-800 shadow-lg rounded-xl p-6 mb-10">
+      <h2 class="text-xl text-white font-semibold mb-4">Editor guiado de instrucciones</h2>
+  
+      <div id="editorConsola" class="bg-[#ffffff] text-gray-800 font-mono rounded-md p-4 min-h-[120px] text-sm">
+        → ¿Qué instrucción deseas agregar?
+      </div>
+  
+      <input
+        id="inputEditor"
+        type="text"
+        placeholder="Escribe una instrucción (Ej: LOAD o 1) o un operando"
+        class="bg-[#ffffff] w-full mt-4 p-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        onkeydown="if(event.key==='Enter') manejarEntradaAvanzada()"
+        />
+  
+      <pre id="programaConstruido" class="bg-[#ffffff] mt-4 p-3 rounded-md border text-sm font-mono min-h-[80px] whitespace-pre-wrap"></pre>
+  
+      <div class="flex justify-center gap-4 mt-4">
+        <button onclick="cargarProgramaDesdeEditor()" class="btn-tunned text-gray-800 px-4 py-2 rounded-md transition text:hover">
+          <i class="fas fa-download mr-1"></i> Cargar programa
+        </button>
+        <button onclick="limpiarPrograma()" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition">
+          <i class="fas fa-trash mr-1"></i> Limpiar
+        </button>
+      </div>
+    </section>
+
+  <!-- Editor manual -->
+  <section class="max-w-5xl mx-auto bg-gray-800 shadow-lg rounded-xl p-6 mb-10">
+    <h2 class="text-xl font-semibold mb-4 text-white">Editor manual de programa</h2>
+    <p class="text-sm text-white mb-4">
+      Escribe tu programa línea por línea. Formato: INSTRUCCIÓN OPERANDO<br>
+      Instrucciones válidas: LOAD, ADD, STORE, SUB, JMP, HALT
+    </p>
+    
+    <textarea 
+      id="programaUsuario" 
+      class="w-full h-32 p-3 font-mono text-sm bg-[#ffffff] border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="LOAD 5
+ADD 6
+STORE 7
+HALT"></textarea>
+    
+    <div class="text-center mt-4">
+      <button onclick="cargarPrograma()" class="btn-tunned px-6 py-2 rounded-md transition">
+        <i class="fas fa-code mr-1"></i> Cargar programa
+      </button>
+    </div>
+  </section>
+
+  <!-- Componentes de arquitectura -->
+  <div class="max-w-5xl mx-auto mb-8 px-4">
+    <h2 class="text-2xl font-bold mb-6 text-center">Componentes de la arquitectura</h2>
+    
+    <div class="w-full min-w-[1026px] ml-[-17px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+      <div class="component bg-gray-800  shadow-md p-5 text-center rounded-lg border" id="memory" title="Memoria principal donde se almacenan datos e instrucciones.">
+        <div class="flex justify-center items-center h-12 mb-2">
+          <i class="fas fa-memory text-2xl text-white"></i>
+        </div>
+        <h3 class="font-semibold text-white text-lg mb-2">Memoria (RAM)</h3>
+        <div class="text-sm mt-2 text-white">
+          Contiene el programa a ejecutar y los datos
+        </div>
+        <div class="mt-3 pt-2 border-t border-gray-100">
+          <button onclick="toggleMemoryView()" class="text-xs text-white hover:text-orange-400 transition">
+            <i class="fas fa-eye mr-1"></i> Ver contenido
+          </button>
+        </div>
+      </div>
+      
+      <div class="component bg-gray-800  shadow-md p-5 text-center rounded-lg border" id="control-unit" title="Dirige el flujo de datos y controla el funcionamiento del procesador.">
+        <div class="flex justify-center items-center h-12 mb-2">
+          <i class="fas fa-microchip text-2xl text-white"></i>
+        </div>
+        <h3 class="font-semibold text-white text-lg mb-2">Unidad de Control</h3>
+        <div class="text-sm mt-2 text-white">
+          Coordina la ejecución de instrucciones
+        </div>
+        <div class="mt-3 pt-2 border-t border-gray-100">
+          <span class="text-xs text-white">Fase actual: <span id="fase-actual">--</span></span>
+        </div>
+      </div>
+      
+      <div class="component bg-gray-800  shadow-md p-5 text-center rounded-lg border" id="alu" title="Realiza operaciones aritméticas y lógicas.">
+        <div class="flex justify-center items-center h-12 mb-2">
+          <i class="fas fa-cogs text-2xl text-white"></i>
+        </div>
+        <h3 class="font-semibold text-white text-lg mb-2">ALU</h3>
+        <div class="text-sm mt-2 text-white">
+          Realiza cálculos como suma y resta
+        </div>
+        <div class="mt-3 pt-2 border-t border-gray-100">
+          <span class="text-xs text-white text-white">Operación: <span id="operacion-actual">--</span></span>
+        </div>
+      </div>
+      
+      <div class="component bg-gray-800  shadow-md p-5 text-center rounded-lg border" id="ir" title="Almacena la instrucción actual que se está ejecutando.">
+        <div class="flex justify-center items-center h-12 mb-2">
+          <i class="fas fa-list text-2xl text-white"></i>
+        </div>
+        <h3 class="font-semibold text-white text-lg mb-2">Registro de Instrucción</h3>
+        <div class="text-sm mt-2 text-white">
+          Almacena la instrucción actual
+        </div>
+        <div class="mt-3 pt-2 border-t border-gray-100">
+          <span class="text-sm font-mono bg-[#ffffff] px-2 py-1 rounded value-display" id="ir-valor">--</span>
+        </div>
+      </div>
+      
+      <div class="component bg-gray-800  shadow-md p-5 text-center rounded-lg border" id="ac" title="Registro que almacena resultados intermedios.">
+        <div class="flex justify-center items-center h-12 mb-2">
+          <i class="fas fa-database text-2xl text-white"></i>
+        </div>
+        <h3 class="font-semibold text-white text-lg mb-2">Acumulador (AC)</h3>
+        <div class="text-sm mt-2 text-white">
+          Almacena resultados de operaciones
+        </div>
+        <div class="mt-3 pt-2 border-t border-gray-100">
+          <span class="text-sm font-mono bg-[#ffffff] px-2 py-1 rounded value-display" id="ac-valor">0</span>
+        </div>
+      </div>
+      
+      <div class="component bg-gray-800  shadow-md p-5 text-center rounded-lg border" id="pc" title="Contador que señala la dirección de la próxima instrucción.">
+        <div class="flex justify-center items-center h-12 mb-2">
+          <i class="fas fa-location-arrow text-2xl text-white"></i>
+        </div>
+        <h3 class="font-semibold text-white text-lg mb-2">Contador de Programa</h3>
+        <div class="text-sm mt-2 text-white">
+          Apunta a la siguiente instrucción
+        </div>
+        <div class="mt-3 pt-2 border-t border-gray-100">
+          <span class="text-sm font-mono bg-[#ffffff] px-2 py-1 rounded value-display" id="pc-valor">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bus de datos -->
+  <div id="data-bus" class="data-bus text-center text-white mb-10 max-w-5xl mx-auto px-4">
+    <div class="data-flow"></div>
+    <div class="bg-[#ef4444]  py-2 px-4 rounded-full inline-block shadow-sm">
+      <i class="fas fa-exchange-alt mr-1"></i> 
+      <span class="font-semibold">Bus de datos</span>
+    </div>
+  </div>
+  
+  <!-- Visualización de memoria (oculta por defecto) -->
+  <div id="memory-view" class="max-w-5xl mx-auto mb-8 px-4 hidden">
+    <div class="bg-[#ef4444]  shadow-md rounded-lg p-4 border">
+      <h3 class="text-lg font-semibold mb-3">Estado de la memoria</h3>
+      <div class="overflow-x-auto">
+        <table class="memory-table">
+          <thead>
+            <tr>
+              <th>Dirección</th>
+              <th>Contenido</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody id="memory-table-body">
+            <!-- Se llena dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <div class="flex justify-center gap-6 mb-12">
+    <button onclick="ejecutarPaso()" class="btn-tunned-3 px-6 py-2 rounded-md transition">
+      <i class="fas fa-play mr-1"></i> Ejecutar paso
+    </button>
+    <button onclick="reiniciarSimulador()" class="btn-tunned-2 px-6 py-2 rounded-md transition">
+      <i class="fas fa-rotate-left mr-1"></i> Reiniciar simulador
+    </button>
+  </div>
+
+  <!-- Consola -->
+  <div class="max-w-5xl mx-auto mb-10">
+    <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
+      <h2 class="text-lg font-semibold mb-3">Consola del sistema</h2>
+      <div id="console" class="console-output bg-[#ffffff] text-gray-800 font-mono p-3 rounded-md min-h-[100px] overflow-y-auto text-sm"></div>
+    </div>
+  </div>
+
+  <footer class="bg-[#1b1f24] text-gray-300 text-sm py-4 w-full mt-10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-white">
+      Copyright ©2025 Todos los derechos reservados | Desarrollado por 
+      <span class="text-white font-semibold">Grupo --</span>
+    </div>
+  </footer>
+  
+
+  <script src="script.js"></script>
+</body>
+</html>

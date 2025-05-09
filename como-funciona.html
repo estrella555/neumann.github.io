@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¿Cómo funciona? - Simulador Von Neumann</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#10b981',
+            accent: '#f59e0b',
+            danger: '#ef4444'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .hero-image {
+      background-image: url('https://cdn.pixabay.com/photo/2016/10/29/10/16/computer-1786276_960_720.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-[#1b1f24] text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <div class="flex items-center gap-2 text-xl font-bold">
+        <i class="fas fa-microchip text-accent"></i>
+        <span>Simulador Von Neumann</span>
+      </div>
+      <ul class="hidden md:flex gap-6 text-sm">
+        <li><a href="index.html" class="hover:text-accent"><i class="fas fa-play-circle mr-1"></i>Simulador</a></li>
+        <li><a href="guia.html" class="text-accent font-semibold"><i class="fas fa-book-open mr-1"></i>¿Cómo funciona?</a></li>
+        <li><a href="acerca.html" class="hover:text-accent"><i class="fas fa-info-circle mr-1"></i>Acerca del proyecto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-image h-64 flex items-center justify-center">
+    <div class="bg-gray-800 text-white w-[1105px] rounded-xl text-center max-w-[980px] mx-auto py-6" >
+      <h2 class="text-3xl font-bold mb-2">Guía de funcionamiento</h2>
+      <p class="text-sm">Aprende paso a paso cómo funciona la arquitectura Von Neumann mediante este simulador interactivo.</p>
+    </div>
+  </section>
+
+  <!-- Contenido -->
+  <main class="max-w-5xl mx-auto px-6 py-10">
+    <h3 class="text-2xl font-semibold mb-6 text-[#404e5c] text-center">
+      <i class="fas fa-list-ol mr-2"></i>Pasos del ciclo de instrucción
+    </h3>
+
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div class="bg-[#f3f4f6] rounded-lg shadow-md p-5">
+        <h4 class="text-lg font-bold mb-2 text-accent"><i class="fas fa-download mr-2"></i>FETCH</h4>
+        <p>El procesador busca la instrucción en la memoria RAM usando el PC (Program Counter).</p>
+      </div>
+      <div class="bg-[#f3f4f6] rounded-lg shadow-md p-5">
+        <h4 class="text-lg font-bold mb-2 text-accent"><i class="fas fa-code-branch mr-2"></i>DECODE</h4>
+        <p>La Unidad de Control interpreta la instrucción y decide qué hacer.</p>
+      </div>
+      <div class="bg-[#f3f4f6] rounded-lg shadow-md p-5">
+        <h4 class="text-lg font-bold mb-2 text-accent"><i class="fas fa-play mr-2"></i>EXECUTE</h4>
+        <p>Se realiza la operación (por ejemplo, suma, carga o salto).</p>
+      </div>
+      <div class="bg-[#f3f4f6] rounded-lg shadow-md p-5">
+        <h4 class="text-lg font-bold mb-2 text-accent"><i class="fas fa-sync-alt mr-2"></i>WRITEBACK</h4>
+        <p>Se actualiza el PC y se reflejan los cambios en registros o memoria.</p>
+      </div>
+    </div>
+
+    <div class="my-10 text-center">
+      <img src="/assets/arqui.png" alt="Arquitectura Von Neumann" class="rounded-lg shadow-md inline-block mt-20">
+    </div>
+
+<!-- Consejos de uso centrado en card -->
+<div class="max-w-5xl mx-auto bg-gray-100 rounded-xl shadow-md p-6 mt-10">
+    <h3 class="text-2xl font-semibold mb-4 text-center text-[#404e5c]">
+      <i class="fas fa-lightbulb mr-2"></i>Consejos de uso
+    </h3>
+    <ul class="list-disc list-inside space-y-2 text-gray-700 text-base px-4">
+      <li>Utiliza el <strong class="text-blue-600">editor guiado</strong> para construir instrucciones paso a paso.</li>
+      <li>Usa el <strong class="text-blue-600">editor manual</strong> si ya sabes las instrucciones (ej: <code class="bg-gray-200 px-1 rounded">LOAD 5</code>).</li>
+      <li>Haz clic en <strong class="text-green-600">"Ejecutar paso"</strong> para simular el ciclo de instrucción.</li>
+      <li>Observa cómo se resaltan los componentes según cada fase.</li>
+    </ul>
+  </div>
+  
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1b1f24] text-gray-300 text-sm py-4 w-full mt-10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-white">
+      Copyright ©2025 Todos los derechos reservados | Desarrollado por
+      <span class="font-semibold">Grupo --</span>
+    </div>
+  </footer>
+
+</body>
+</html>
